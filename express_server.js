@@ -6,17 +6,6 @@ const PORT = 8080;
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// use res.render to load up an ejs view file
-// index page
-app.get("/", function(req, res) {
-  res.render("pages/index");
-});
-
-// about page
-app.get("/about", function(req, res) {
-  res.render("pages/about");
-});
-
 const urlDatabase = {
   b2xVn2: "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
@@ -32,22 +21,31 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
-  console.log(req.body.longURL); // Log the POST request body to the console
-  res.send("Ok"); // Respond with 'Ok' (we will replace this)
+  urlDatabase[generateRandomString()] = req.body.longURL;
+  res.redirect("/urls");
 });
 
 app.get("/urls/:shortURL", (req, res) => {
-  let templateVars = {
-    shortURL: req.params.shortURL,
-    longURL: urlDatabase[req.params.shortURL]
-  };
-  res.render("pages/urls_show", templateVars);
+  // let templateVars = {
+  //   shortURL: req.params.shortURL,
+  //   longURL: urlDatabase[req.params.shortURL]
+  // };
+  // res.render("pages/urls_show", templateVars);
+  console.log(urlDatabase);
+  res.redirect(urlDatabase[req.params.shortURL]);
+  // res.redirect("http://www.google.com");
 });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
 
-let generateRandomString() {
-
-}
+let generateRandomString = function(
+  length = 6,
+  chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+) {
+  let result = "";
+  for (var i = length; i > 0; --i)
+    result += chars[Math.floor(Math.random() * chars.length)];
+  return result;
+};
