@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node app",
+    "dev": "nodemon app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/declan-wu/tinyapp/issues"
   },
-  "homepage": "https://github.com/declan-wu/tinyapp#readme"
+  "homepage": "https://github.com/declan-wu/tinyapp#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
 }
