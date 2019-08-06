@@ -1,14 +1,13 @@
 const express = require("express");
 const db = require("../data");
 const router = express.Router();
-const methodOverride = require("method-override");
-// const bodyParser = require("body-parser");
-// const app = express();
-// app.set("view engine", "ejs");
-// app.use(bodyParser.urlencoded({ extended: true }));
 
 router.get("/", (req, res) => {
-  res.render("urls_index", { urls: db });
+  let templateVars = {
+    username: req.cookies.username,
+    urls: db
+  };
+  res.render("urls_index", templateVars);
 });
 
 router.post("/", (req, res) => {
@@ -19,24 +18,29 @@ router.post("/", (req, res) => {
 });
 
 router.get("/new", (req, res) => {
-  res.render("urls_new");
+  let templateVars = {
+    username: req.cookies.username
+    // urls: db
+  };
+  res.render("urls_new", templateVars);
 });
 
 router.get("/:shortURL", (req, res) => {
-  const tempUrls = {
+  const templateVars = {
     shortURL: req.params.shortURL,
-    longURL: db[req.params.shortURL]
+    longURL: db[req.params.shortURL],
+    username: req.cookies.username
   };
-  res.render("urls_show", tempUrls);
+  res.render("urls_show", templateVars);
+});
+
+router.post("/:shortURL/edit", (req, res) => {
+  db[req.params.shortURL] = changeToFullUrl(req.body.longURL);
+  res.redirect("/urls");
 });
 
 router.post("/:shortURL/delete", (req, res) => {
   delete db[req.params.shortURL];
-  res.redirect("/urls");
-});
-
-router.post("/:shortURL/edit", (req, res) => {
-  db[req.params.shortURL] = req.body.longURL;
   res.redirect("/urls");
 });
 
