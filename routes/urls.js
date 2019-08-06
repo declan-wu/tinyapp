@@ -33,7 +33,11 @@ router.get("/:shortURL", (req, res) => {
 router.post("/:shortURL/delete", (req, res) => {
   delete db[req.params.shortURL];
   res.redirect("/urls");
-  // res.render("urls_index");
+});
+
+router.post("/:shortURL/edit", (req, res) => {
+  db[req.params.shortURL] = req.body.longURL;
+  res.redirect("/urls");
 });
 
 // Helper functions for generating random url and full url
