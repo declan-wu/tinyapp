@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/:id", (req, res) => {
   if (urlDatabase.hasOwnProperty(req.params.id)) {
-    res.redirect(urlDatabase[req.params.id]);
+    res.redirect("urlDatabase[req.params.id]");
   } else {
   }
   res.redirect("/404");
