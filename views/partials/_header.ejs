@@ -19,16 +19,16 @@
       </div>
     </div>
     <div>
-      <% if (false) { %>
-      <form method="POST" action="/authentication/logout">
-        User: <%= user.email %>
+      <% if (user_id) { %>
+      <div>User Email: <%= email %></div>
+      <form method="POST" action="/logout">
         <button type="submit" value="Submit">Logout</button>
       </form>
       <% } else { %>
       <form method="GET" action="/register">
         <button type="submit" value="Submit">Register</button>
       </form>
-      <form method="GET" action="/authentication/login">
+      <form method="GET" action="/login">
         <button type="submit" value="Submit">Login</button>
       </form>
       <% } %>

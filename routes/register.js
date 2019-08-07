@@ -1,23 +1,27 @@
 const express = require("express");
-const { allUsers, addUser } = require("../data/users");
-const { generateRandomString } = require("../helper");
-
+const users = require("../data/users");
+const { generateRandomString, emailExist } = require("../helper");
 const router = express.Router();
 
 router.post("/", (req, res) => {
+  if (emailExist(req.body.email, users)) {
+    res.redirect(303, "/404"); // error emssage user exists
+  }
   const userID = generateRandomString();
   const newUser = {
     id: userID,
     email: req.body.email,
     password: req.body.password
   };
-  // allUsers().userID = newUser;
-  addUser(userID, newUser);
+  users[userID] = newUser;
   res.cookie("user_id", userID);
   res.redirect(303, "/urls");
 });
 
 router.get("/", (req, res) => {
+  if (req.cookies.user_id) {
+    res.redirect(303, "/urls");
+  }
   res.render("register");
 });
 
