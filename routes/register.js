@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
 const users = require("../data/users");
 const { generateRandomString, emailExist } = require("../helper");
 const router = express.Router();
@@ -11,7 +12,7 @@ router.post("/", (req, res) => {
   const newUser = {
     id: userID,
     email: req.body.email,
-    password: req.body.password
+    password: bcrypt.hashSync(req.body.password, 10)
   };
   users[userID] = newUser;
   res.cookie("user_id", userID);

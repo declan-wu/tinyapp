@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 // Helper functions for generating random url and full url
 const changeToFullUrl = function(longURL) {
   let urlPartsArr = longURL.split("//");
@@ -20,7 +22,10 @@ const generateRandomString = function(
 // given an email and user database, check if user exists, if exits, return the matching userID
 const isRightUser = function(email, password, users) {
   for (user in users) {
-    if (users[user].email === email && users[user].password === password) {
+    if (
+      users[user].email === email &&
+      bcrypt.compareSync(password, users[user].password)
+    ) {
       return users[user].id;
     }
   }

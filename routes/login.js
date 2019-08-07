@@ -1,10 +1,15 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
 const { isRightUser } = require("../helper");
 const users = require("../data/users");
 const router = express.Router();
 
 router.post("/", (req, res) => {
-  let userID = isRightUser(req.body.email, req.body.password, users);
+  let userID = isRightUser(
+    req.body.email,
+    req.body.password,
+    users
+  );
   if (userID) {
     res.cookie("user_id", userID);
     res.redirect(303, "/urls");
