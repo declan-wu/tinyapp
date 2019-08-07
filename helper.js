@@ -18,7 +18,7 @@ const generateRandomString = function(
 };
 
 // given an email and user database, check if user exists, if exits, return the matching userID
-const isRightUser = function(email, password) {
+const isRightUser = function(email, password, users) {
   for (user in users) {
     if (users[user].email === email && users[user].password === password) {
       return users[user].id;

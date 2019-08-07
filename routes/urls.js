@@ -19,8 +19,6 @@ router.all("/", (req, res, next) => {
 });
 
 router.get("/", (req, res) => {
-  console.log(req.cookies);
-  console.log(users);
   let templateVars = {
     user_id: req.cookies.user_id,
     urls: filterUrl(req.cookies.user_id, urlDatabase),

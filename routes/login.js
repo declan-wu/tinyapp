@@ -4,7 +4,7 @@ const users = require("../data/users");
 const router = express.Router();
 
 router.post("/", (req, res) => {
-  let userID = isRightUser(req.body.email, req.body.password);
+  let userID = isRightUser(req.body.email, req.body.password, users);
   if (userID) {
     res.cookie("user_id", userID);
     res.redirect(303, "/urls");
