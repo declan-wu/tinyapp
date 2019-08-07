@@ -1,6 +1,9 @@
 const express = require("express");
 const urlsRouter = require("./routes/urls");
-const authenticationRouter = require("./routes/authentication");
+const loginRouter = require("./routes/login");
+const logoutRouter = require("./routes/logout");
+const registerRouter = require("./routes/register");
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -11,7 +14,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/urls", urlsRouter);
-app.use("/authentication", authenticationRouter);
+app.use("/login", loginRouter);
+app.use("/logout", logoutRouter);
+app.use("/register", registerRouter);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);

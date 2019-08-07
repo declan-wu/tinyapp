@@ -1,5 +1,6 @@
 const express = require("express");
-const db = require("../data");
+const db = require("../data/urlDatabase");
+const { generateRandomString, changeToFullUrl } = require("../helper");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -43,24 +44,5 @@ router.post("/:shortURL/delete", (req, res) => {
   delete db[req.params.shortURL];
   res.redirect("/urls");
 });
-
-// Helper functions for generating random url and full url
-let changeToFullUrl = function(longURL) {
-  let urlPartsArr = longURL.split("//");
-  if (urlPartsArr.length === 1) {
-    return "http://" + urlPartsArr[0];
-  }
-  return longURL;
-};
-
-let generateRandomString = function(
-  length = 6,
-  chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-) {
-  let result = "";
-  for (var i = length; i > 0; --i)
-    result += chars[Math.floor(Math.random() * chars.length)];
-  return result;
-};
 
 module.exports = router;
