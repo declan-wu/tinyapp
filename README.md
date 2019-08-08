@@ -3,8 +3,7 @@
 As an avid twitter poster, I wonder “How can I fit more non-link text in my tweets?” <br />
 As a twitter reader, I want to be able to visit sites via shortened links, so that I can read interesting content. <br />
 
-TinyApp is a application used to shorten links, developed in Node.js,
-
+TinyApp is developed in Node.js with Express for backend, and using EJS to render HTML/CSS page for front end. The project is a learning experiment that serves the purpose of leaning/understanding how servers (Node/Express) work, and routing and handling requests, etc. The front end pages are served using EJS template by the server. 
 
 ## Getting Started
 
