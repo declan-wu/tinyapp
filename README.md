@@ -62,7 +62,7 @@ This app has't been deployed yet as of now.
 
 ## Versioning
 
-Everything Calgary version 1.0.0
+TinyApp 1.0.0
 
 ## Authors
 
