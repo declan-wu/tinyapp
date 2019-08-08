@@ -1,6 +1,7 @@
 const express = require("express");
 const users = require("../data/users");
 const urlDatabase = require("../data/urlDatabase");
+const moment = require("moment");
 
 const {
   generateRandomString,
@@ -11,7 +12,7 @@ const {
 const router = express.Router();
 
 router.all("/", (req, res, next) => {
-  if (!req.session.user_id) {
+  if (!users[req.session.user_id]) {
     res.redirect("/login");
   } else {
     next();
@@ -32,7 +33,9 @@ router.post("/", (req, res) => {
   const shortUrl = generateRandomString();
   urlDatabase[shortUrl] = {
     longURL: fullUrl,
-    userID: req.session.user_id
+    userID: req.session.user_id,
+    dateCreated: moment().format("MMM Do YY"),
+    clicks: 0
   };
   res.redirect(303, `urls/${shortUrl}`);
 });
@@ -53,6 +56,7 @@ router.get("/:shortURL", (req, res) => {
   const templateVars = {
     shortURL: req.params.shortURL,
     longURL: urlDatabase[req.params.shortURL].longURL,
+    dateCreated: urlDatabase[req.params.shortURL].dateCreated,
     user_id: req.session.user_id,
     email: req.session.email
   };

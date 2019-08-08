@@ -15,8 +15,9 @@ router.post("/", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  if (req.session.user_id) {
+  if (users[req.session.user_id]) {
     res.redirect(303, "/urls");
+    return;
   }
   res.render("login");
 });
