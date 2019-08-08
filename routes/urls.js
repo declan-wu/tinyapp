@@ -11,11 +11,13 @@ const {
 
 const router = express.Router();
 
-router.all("/", (req, res, next) => {
+router.all("*", (req, res, next) => {
   if (!users[req.session.user_id]) {
     res.redirect("/login");
+    return;
   } else {
     next();
+    return;
   }
 });
 
@@ -43,7 +45,7 @@ router.post("/", (req, res) => {
 router.get("/new", (req, res) => {
   let templateVars = {
     user_id: req.session.user_id,
-    email: req.session.email
+    email: users[req.session.user_id].email
   };
   res.render("urls_new", templateVars);
 });
