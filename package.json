@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node express_server",
     "dev": "nodemon express_server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,8 @@
     "moment": "^2.24.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
     "nodemon": "^1.19.1"
   }
 }

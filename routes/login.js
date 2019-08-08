@@ -9,8 +9,10 @@ router.post("/", (req, res) => {
   if (userID) {
     req.session.user_id = userID;
     res.redirect(303, "/urls");
+    return;
   } else {
-    res.redirect(303, "/login"); //suppoed to be an error msg page
+    res.redirect(303, "/error/passwordNotMatched");
+    return;
   }
 });
 

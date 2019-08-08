@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/", (req, res) => {
   if (emailExist(req.body.email, users)) {
-    res.redirect(303, "/404"); // error emssage user exists
+    res.redirect(303, "/error/userExists"); // error emssage user exists
   }
   const userID = generateRandomString();
   const newUser = {

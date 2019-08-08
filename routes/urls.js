@@ -11,9 +11,9 @@ const {
 
 const router = express.Router();
 
-router.all("*", (req, res, next) => {
+router.all("/", (req, res, next) => {
   if (!users[req.session.user_id]) {
-    res.redirect("/login");
+    res.redirect("/error/pleaseLogin");
     return;
   } else {
     next();
@@ -40,6 +40,7 @@ router.post("/", (req, res) => {
     clicks: 0
   };
   res.redirect(303, `urls/${shortUrl}`);
+  return;
 });
 
 router.get("/new", (req, res) => {
@@ -52,8 +53,13 @@ router.get("/new", (req, res) => {
 
 router.get("/:shortURL", (req, res) => {
   const userUrls = filterUrl(req.session.user_id, urlDatabase);
+  if (!urlDatabase.hasOwnProperty(req.params.shortURL)) {
+    res.redirect("/error/pageNotFound");
+    return;
+  }
   if (!userUrls.hasOwnProperty(req.params.shortURL)) {
-    res.redirect("/404");
+    res.redirect("/error/accessFailed");
+    return;
   }
   const templateVars = {
     shortURL: req.params.shortURL,
@@ -66,18 +72,26 @@ router.get("/:shortURL", (req, res) => {
 });
 
 router.post("/:shortURL/edit", (req, res) => {
+  if (!urlDatabase.hasOwnProperty(req.params.shortURL)) {
+    res.redirect("/error/pageNotFound");
+    return;
+  }
   const userUrls = filterUrl(req.session.user_id, urlDatabase);
   if (!userUrls.hasOwnProperty(req.params.shortURL)) {
-    res.redirect("/404");
+    res.redirect("/error/accessFailed");
   }
   urlDatabase[req.params.shortURL].longURL = changeToFullUrl(req.body.longURL);
   res.redirect("/urls");
 });
 
 router.post("/:shortURL/delete", (req, res) => {
+  if (!urlDatabase.hasOwnProperty(req.params.shortURL)) {
+    res.redirect("/error/pageNotFound");
+    return;
+  }
   const userUrls = filterUrl(req.session.user_id, urlDatabase);
   if (!userUrls.hasOwnProperty(req.params.shortURL)) {
-    res.redirect("/404");
+    res.redirect("/error/accessFailed");
   }
   delete urlDatabase[req.params.shortURL];
   res.redirect("/urls");

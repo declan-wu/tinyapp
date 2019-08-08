@@ -6,8 +6,10 @@ router.get("/:id", (req, res) => {
   if (urlDatabase.hasOwnProperty(req.params.id)) {
     urlDatabase[req.params.id].clicks++;
     res.redirect(urlDatabase[req.params.id].longURL);
+    return;
   } else {
-    res.redirect("/404");
+    res.redirect("/error/pageNotFound");
+    return;
   }
 });
 
