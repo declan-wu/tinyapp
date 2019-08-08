@@ -1,4 +1,4 @@
-# tinyapp
+# Tinyapp
 
 As an avid twitter poster, I wonder “How can I fit more non-link text in my tweets?” <br />
 As a twitter reader, I want to be able to visit sites via shortened links, so that I can read interesting content. <br />
