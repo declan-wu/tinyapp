@@ -6,12 +6,18 @@ const logoutRouter = require("./routes/logout");
 const registerRouter = require("./routes/register");
 const shareShortUrlRouter = require("./routes/shareShortUrl");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 
 const app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["rotationahjkhafjsdkhfasfadsf"],
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  })
+);
 
 app.use("/", indexRouter);
 app.use("/u", shareShortUrlRouter);

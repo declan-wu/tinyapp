@@ -15,12 +15,12 @@ router.post("/", (req, res) => {
     password: bcrypt.hashSync(req.body.password, 10)
   };
   users[userID] = newUser;
-  res.cookie("user_id", userID);
+  req.session.user_id = userID;
   res.redirect(303, "/urls");
 });
 
 router.get("/", (req, res) => {
-  if (req.cookies.user_id) {
+  if (req.session.user_id) {
     res.redirect(303, "/urls");
   }
   res.render("register");
