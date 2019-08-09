@@ -1,5 +1,4 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
 const { isRightUser } = require("../helper");
 const users = require("../data/users");
 const router = express.Router();
